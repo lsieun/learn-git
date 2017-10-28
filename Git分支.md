@@ -14,6 +14,7 @@ local branch支持“增、删、改、查”操作，支持“切换 和 合并
 	git branch -v # 其中-v表示查看branch的细节
 
 查看已经（未）合并的分支
+
 	git branch --merged
 	git branch --no-merged
 
