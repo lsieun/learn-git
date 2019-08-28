@@ -8,9 +8,10 @@
   - [3.1. System](#31-System)
   - [3.2. Global](#32-Global)
   - [3.3. Local](#33-Local)
-- [Seeing Configuration Values](#Seeing-Configuration-Values)
-- [Undoing a Configuration Setting](#Undoing-a-Configuration-Setting)
-- [Listing Configuration Settings](#Listing-Configuration-Settings)
+- [4. Seeing Configuration Values](#4-Seeing-Configuration-Values)
+- [5. Undoing a Configuration Setting](#5-Undoing-a-Configuration-Setting)
+- [6. Listing Configuration Settings](#6-Listing-Configuration-Settings)
+- [7. Configuration File](#7-Configuration-File)
 
 <!-- /TOC -->
 
@@ -80,6 +81,13 @@ These settings are usually stored in a `gitconfig` file in either `/usr/etc` or 
 
 存储位置：在CentOS 7上， Git版本是1.8.3.1，配置文件是在`/etc/gitconfig`。但是，没有验证在其他操作系统上的位置是在哪里。
 
+我想到一个办法，可以找到它了： 由于普通用户没有设置system level级别信息的权限，因此会报错，报错信息中包含了文件的位置信息
+
+```bash
+$ git config --system user.name "super user"
+error: could not lock config file /usr/local/etc/gitconfig: Permission denied
+```
+
 ### 3.2. Global
 
 Configuration at the global level implies that a configuration value applies to all of the repositories for a particular user, unless overridden at the local level. Unless you need repository-specific settings, this is the most common level for users to work with because it saves the effort of having to set values for each repository.
@@ -102,11 +110,11 @@ The local repository's configuration is stored within the local Git repository, 
 
 存储位置：`<git repository>/.git/config`
 
-## Seeing Configuration Values
+## 4. Seeing Configuration Values
 
 To see what value a particular configuration setting has, you can use `git <setting>` as in `git config user.name`.
 
-## Undoing a Configuration Setting
+## 5. Undoing a Configuration Setting
 
 Occasionally, you may need to remove a user setting at a particular level. Git provides the `unset` option for this, and it's pretty straightforward:
 
@@ -121,7 +129,7 @@ git config --unset --global user.name
 git config --global user.name
 ```
 
-## Listing Configuration Settings
+## 6. Listing Configuration Settings
 
 Another option related to viewing configuration values is `--list`. Supplying the `list` option to `git config` results in a list of all configuration settings being dumped. By default, this list includes local, global, and system settings without qualification. So, if you have both a local and global value for the same setting, you will see both.
 
@@ -134,4 +142,19 @@ If the settings have the same values, this can be confusing (and potentially mis
 ```bash
 git config --local --list
 ```
+
+## 7. Configuration File
+
+If you are ever unable to figure out where a particular configuration value is set, you can use the `-- show-origin` option with the configuration setting name to figure it out. For example, if you run the command `git config user.name "Joe Gituser"` then `git config --show-origin user.name` shows this: `file:.git/config   Joe Gituser`.
+
+This option can also be combined with the `--list` option to get a complete list of where all the settings are stored.
+
+```bash
+$ git config --list --show-origin
+file:/usr/local/etc/gitconfig   user.name=super user
+file:/home/tom/.gitconfig       user.name=Tom Cat
+file:/home/tom/.gitconfig       user.email=tom@example.com
+```
+
+
 

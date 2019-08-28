@@ -1,4 +1,4 @@
-# gitignore #
+# gitignore
 
 输入`git help gitignore`查看gitignore的帮助文档
 
@@ -25,4 +25,15 @@ To stop tracking a file that is currently tracked, use `git rm --cached`.
 a.txt
 *.txt
 
+## Java
 
+```txt
+# IDEA
+
+.idea/
+*.iml
+*.kotlin_module
+target/
+.*
+!.gitignore
+```
