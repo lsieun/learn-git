@@ -34,6 +34,9 @@ a.txt
 *.iml
 *.kotlin_module
 target/
+lib/
+build/
+dist/
 .*
 !.gitignore
 ```

@@ -74,19 +74,19 @@ There are **three possible values** for the `core.autocrlf` setting:
 - `core.autocrlf=true`. This value tells Git to normalize line endings to just `LF`s when storing files in the repository and to automatically insert `CRLF`s when files are checked out. If users are working on a **Windows** environment, this is **the recommended value**. It allows them to get `CRLF`s in files when checked out from Git, but doesn't store the `CR`s in the repository.
 
 ```bash
-git config --global core.autocrlf=true
+git config --global core.autocrlf true
 ```
 
 - `core.autocrlf=input`. This value tells Git to normalize line endings to just `LF`s when storing files in the repository but not to change anything when files are checked out. If users are working in a **Unix** environment, this is the recommended value because Unix expects just `LF`s.
 
 ```bash
-git config --global core.autocrlf=input
+git config --global core.autocrlf input
 ```
 
 - `core.autocrlf=false`. This default value tells Git not to change anything when files are being checked in or checked out. **This is the primary value for the setting that can get users into trouble**. Suppose you have two users working on code for the same repository, one in a Windows environment and one in a Unix environment. If both users have specified the `core.autocrlf=false` value in their configurations, then when they commit changes, the files from Windows will have `CRLF`s and those from Unix will have just `LF`s. If the respective users later each check out the other's files, then the files will have the wrong line endings for their system. For this reason, this value should not be used when **mixed** environments are being used in a project.
 
 ```bash
-git config --global core.autocrlf=false
+git config --global core.autocrlf false
 ```
 
 In general, it's a best practice to set the `core.autocrlf` setting to one of the values other than `false`, depending on which environment you're working in.
